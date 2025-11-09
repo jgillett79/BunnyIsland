@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BunnyIsland - Carrot Collection Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Menu Screen -->
+        <div id="main-menu" class="screen active">
+            <h1 class="game-title">🐰 BunnyIsland 🥕</h1>
+            <div class="button-container">
+                <button class="circular-button" id="btn-carrot-world">
+                    <div class="button-icon">🥕</div>
+                    <div class="button-label">Carrot Collection</div>
+                </button>
+                <button class="circular-button" id="btn-castle">
+                    <div class="button-icon">🏰</div>
+                    <div class="button-label">Bunny Castle</div>
+                </button>
+                <button class="circular-button" id="btn-merge">
+                    <div class="button-icon">✨</div>
+                    <div class="button-label">Merge Furniture</div>
+                </button>
+            </div>
+            <div class="stats-display">
+                <div class="stat-item">
+                    <span class="stat-label">Level:</span>
+                    <span id="player-level">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Carrots:</span>
+                    <span id="carrot-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Bunnies:</span>
+                    <span id="bunny-count">1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carrot Collection Screen -->
+        <div id="carrot-world" class="screen">
+            <div class="screen-header">
+                <button class="back-button" data-back="main-menu">← Back</button>
+                <h2>Carrot Collection</h2>
+                <div class="level-display">Level <span id="current-level">1</span></div>
+            </div>
+            <div class="game-area" id="carrot-game-area">
+                <!-- Carrots will spawn here -->
+            </div>
+            <div class="game-footer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="level-progress"></div>
+                    <span class="progress-text"><span id="carrots-in-level">0</span>/10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Castle Screen -->
+        <div id="castle" class="screen">
+            <div class="screen-header">
+                <button class="back-button" data-back="main-menu">← Back</button>
+                <h2>Bunny Castle</h2>
+                <div class="castle-controls">
+                    <button id="toggle-day-night">🌙 Night</button>
+                </div>
+            </div>
+            <div class="castle-area" id="castle-area">
+                <div class="castle-room" id="castle-room">
+                    <!-- Furniture and bunnies will be placed here -->
+                    <div class="bunny" id="bunny-1" style="left: 50%; top: 50%;">
+                        <div class="bunny-sprite bridal">👰🐰</div>
+                        <div class="bunny-name">Bridal Bunny</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merge Furniture Screen -->
+        <div id="merge-board" class="screen">
+            <div class="screen-header">
+                <button class="back-button" data-back="main-menu">← Back</button>
+                <h2>Merge Furniture</h2>
+            </div>
+            <div class="merge-area">
+                <div class="merge-grid" id="merge-grid">
+                    <!-- 5x5 grid for merging -->
+                </div>
+            </div>
+            <div class="furniture-selector" id="furniture-selector">
+                <h3>Select New Furniture (Level 1)</h3>
+                <div class="furniture-options">
+                    <button class="furniture-option" data-furniture="lamp" data-level="1">
+                        <span class="furniture-icon">💡</span>
+                        <span>Lamp</span>
+                    </button>
+                    <button class="furniture-option" data-furniture="drawer" data-level="1">
+                        <span class="furniture-icon">🗄️</span>
+                        <span>Drawer</span>
+                    </button>
+                    <button class="furniture-option" data-furniture="chair" data-level="1">
+                        <span class="furniture-icon">🪑</span>
+                        <span>Chair</span>
+                    </button>
+                    <button class="furniture-option" data-furniture="table" data-level="1">
+                        <span class="furniture-icon">🍽️</span>
+                        <span>Table</span>
+                    </button>
+                    <button class="furniture-option" data-furniture="bed" data-level="1">
+                        <span class="furniture-icon">🛏️</span>
+                        <span>Bed</span>
+                    </button>
+                    <button class="furniture-option" data-furniture="plant" data-level="1">
+                        <span class="furniture-icon">🪴</span>
+                        <span>Plant</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

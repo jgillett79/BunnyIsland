@@ -1,0 +1,489 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Main Menu */
+#main-menu {
+    background: linear-gradient(180deg, #ffeaa7 0%, #fdcb6e 100%);
+    justify-content: center;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 3.5em;
+    color: #2d3436;
+    text-shadow: 3px 3px 0 #fdcb6e, 6px 6px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.button-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.circular-button {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(145deg, #ffffff, #e0e0e0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1em;
+}
+
+.circular-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.circular-button:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.button-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.button-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #2d3436;
+    text-align: center;
+}
+
+.stats-display {
+    display: flex;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2d3436;
+}
+
+.stat-label {
+    color: #636e72;
+    margin-right: 5px;
+}
+
+/* Screen Header */
+.screen-header {
+    background: linear-gradient(145deg, #74b9ff, #0984e3);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.screen-header h2 {
+    color: white;
+    font-size: 1.8em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid white;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.level-display {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Carrot Collection */
+#carrot-world {
+    background: linear-gradient(180deg, #81ecec 0%, #55efc4 100%);
+}
+
+.game-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: url('data:image/svg+xml,<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg"><rect width="50" height="50" fill="%2355efc4"/><rect width="25" height="25" fill="%2300b894"/><rect x="25" y="25" width="25" height="25" fill="%2300b894"/></svg>');
+}
+
+.carrot {
+    position: absolute;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: transform 0.1s;
+    animation: carrotAppear 0.5s ease-out;
+}
+
+.carrot:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.carrot.golden {
+    filter: drop-shadow(0 0 10px gold);
+}
+
+.carrot.rainbow {
+    animation: rainbow 2s linear infinite, carrotAppear 0.5s ease-out;
+}
+
+@keyframes carrotAppear {
+    from {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.carrot-collect-animation {
+    animation: collectCarrot 0.5s ease-out forwards;
+}
+
+@keyframes collectCarrot {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(360deg) translateY(-100px);
+        opacity: 0;
+    }
+}
+
+.game-footer {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.progress-bar {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid white;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #fdcb6e, #e17055);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease-out;
+    border-radius: 12px;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Castle */
+#castle {
+    background: linear-gradient(180deg, #a29bfe, #6c5ce7);
+}
+
+.castle-area {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+}
+
+.castle-room {
+    background: linear-gradient(180deg, #ffeaa7, #fdcb6e);
+    min-height: 100%;
+    border-radius: 15px;
+    position: relative;
+    background-image:
+        repeating-linear-gradient(90deg, transparent, transparent 99px, rgba(0,0,0,0.05) 99px, rgba(0,0,0,0.05) 100px),
+        repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(0,0,0,0.05) 99px, rgba(0,0,0,0.05) 100px);
+}
+
+.bunny {
+    position: absolute;
+    text-align: center;
+    transition: all 0.5s ease-out;
+    cursor: pointer;
+}
+
+.bunny-sprite {
+    font-size: 3em;
+    animation: hop 2s ease-in-out infinite;
+}
+
+@keyframes hop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.bunny-name {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+.castle-controls button {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid white;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.castle-controls button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.castle-room.night {
+    background: linear-gradient(180deg, #2d3436, #636e72);
+    filter: brightness(0.6);
+}
+
+/* Merge Board */
+#merge-board {
+    background: linear-gradient(180deg, #fd79a8, #e84393);
+}
+
+.merge-area {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+}
+
+.merge-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.merge-cell {
+    aspect-ratio: 1;
+    background: rgba(255, 255, 255, 0.5);
+    border: 3px dashed rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.merge-cell:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+}
+
+.merge-cell.occupied {
+    background: white;
+    border: 3px solid #fdcb6e;
+}
+
+.furniture-item {
+    font-size: 2em;
+    position: relative;
+    cursor: grab;
+}
+
+.furniture-item:active {
+    cursor: grabbing;
+}
+
+.furniture-level {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e17055;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.4em;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.furniture-selector {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    border-top: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.furniture-selector h3 {
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.furniture-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.furniture-option {
+    background: white;
+    border: 3px solid #fdcb6e;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.furniture-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.furniture-icon {
+    font-size: 2em;
+}
+
+/* Merge animation */
+@keyframes mergeAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.merging {
+    animation: mergeAnimation 0.6s ease-out;
+}
+
+/* Level up notification */
+.level-up-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, #fdcb6e, #e17055);
+    color: white;
+    padding: 30px 50px;
+    border-radius: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: levelUpAppear 1s ease-out;
+    z-index: 1000;
+}
+
+@keyframes levelUpAppear {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
