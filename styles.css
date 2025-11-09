@@ -630,7 +630,7 @@ body {
     }
 }
 
-/* Realistic Soft Toy Bunny Sprites */
+/* Photorealistic Soft Toy Bunny Sprites */
 .bunny {
     position: relative;
     width: 80px;
@@ -644,318 +644,677 @@ body {
     display: block;
 }
 
-/* Base bunny body structure */
+/* Base bunny body structure with fur texture */
 .bunny-sprite::before {
-    /* Main body - soft plush shape */
+    /* Main body - soft plush shape with realistic fur */
     content: '';
     position: absolute;
-    width: 50px;
-    height: 60px;
-    background: radial-gradient(ellipse at 50% 40%, #ffffff, #f0f0f0, #e8e8e8);
-    border-radius: 45% 45% 50% 50%;
+    width: 52px;
+    height: 62px;
+    /* Photorealistic fur texture using multiple layered gradients */
+    background:
+        /* Fur texture - tiny highlights */
+        radial-gradient(circle 0.5px at 20% 20%, rgba(255,255,255,0.8), transparent 50%),
+        radial-gradient(circle 0.5px at 80% 30%, rgba(255,255,255,0.7), transparent 50%),
+        radial-gradient(circle 0.5px at 40% 50%, rgba(255,255,255,0.6), transparent 50%),
+        radial-gradient(circle 0.5px at 65% 65%, rgba(255,255,255,0.8), transparent 50%),
+        radial-gradient(circle 0.5px at 30% 80%, rgba(255,255,255,0.7), transparent 50%),
+        radial-gradient(circle 0.5px at 75% 85%, rgba(255,255,255,0.6), transparent 50%),
+        /* Soft shadow areas for depth */
+        radial-gradient(ellipse 15px 20px at 15% 40%, rgba(0,0,0,0.05), transparent 70%),
+        radial-gradient(ellipse 15px 20px at 85% 60%, rgba(0,0,0,0.08), transparent 70%),
+        /* Main plush body gradient */
+        radial-gradient(ellipse at 45% 35%, #ffffff, #fafafa 30%, #f5f5f5 60%, #ececec 85%, #e3e3e3);
+    background-size:
+        100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
+        100% 100%, 100% 100%,
+        100% 100%;
+    background-position: center;
+    border-radius: 46% 46% 50% 50%;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+    /* Realistic soft toy shadows */
     box-shadow:
-        inset -5px -8px 15px rgba(0,0,0,0.08),
-        inset 5px 5px 15px rgba(255,255,255,0.9),
-        0 8px 20px rgba(0,0,0,0.25);
+        /* Inner shadows for plush depth */
+        inset -8px -12px 20px rgba(0,0,0,0.12),
+        inset -3px -5px 10px rgba(0,0,0,0.08),
+        inset 8px 8px 20px rgba(255,255,255,0.95),
+        inset 3px 3px 8px rgba(255,255,255,0.85),
+        /* Outer shadows for ground contact */
+        0 12px 25px rgba(0,0,0,0.28),
+        0 6px 12px rgba(0,0,0,0.18),
+        0 2px 4px rgba(0,0,0,0.12);
     z-index: 1;
+    /* Subtle fabric texture */
+    background-blend-mode: soft-light, soft-light, soft-light, soft-light, soft-light, soft-light, multiply, multiply, normal;
 }
 
-/* Head with ears integrated */
+/* Head with ears integrated - photorealistic */
 .bunny-sprite::after {
-    /* Bunny head with connected ears */
+    /* Bunny head with connected ears and fur texture */
     content: '';
     position: absolute;
-    width: 45px;
-    height: 60px;
+    width: 46px;
+    height: 62px;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background:
-        /* Left ear */
-        radial-gradient(ellipse 8px 28px at 25% 15%, #f5f5f5, #e8e8e8),
-        /* Right ear */
-        radial-gradient(ellipse 8px 28px at 75% 15%, #f5f5f5, #e8e8e8),
-        /* Head */
-        radial-gradient(circle at 50% 60%, #ffffff, #f5f5f5);
-    background-position: 0 0, 0 0, 0 15px;
+    /* Photorealistic fur and structure */
+    background-image:
+        /* Shiny eyes with reflections */
+        radial-gradient(circle 3.5px at 38% 55%, #1a1a1a 40%, #2d3436 70%, #636e72 100%),
+        radial-gradient(circle 1px at 36% 53%, rgba(255,255,255,0.9), transparent 100%),
+        radial-gradient(circle 3.5px at 62% 55%, #1a1a1a 40%, #2d3436 70%, #636e72 100%),
+        radial-gradient(circle 1px at 60% 53%, rgba(255,255,255,0.9), transparent 100%),
+        /* Glossy nose */
+        radial-gradient(ellipse 5px 4px at 50% 68%, #ff9eaf 0%, #ffb6c1 50%, #ffc9d4 100%),
+        radial-gradient(ellipse 2px 1.5px at 49% 66%, rgba(255,255,255,0.8), transparent 100%),
+        /* Left ear inner fur */
+        radial-gradient(ellipse 4px 18px at 25% 18%, rgba(255,200,210,0.4), transparent 80%),
+        /* Right ear inner fur */
+        radial-gradient(ellipse 4px 18px at 75% 18%, rgba(255,200,210,0.4), transparent 80%),
+        /* Fur texture highlights on face */
+        radial-gradient(circle 0.5px at 30% 45%, rgba(255,255,255,0.7), transparent 50%),
+        radial-gradient(circle 0.5px at 70% 48%, rgba(255,255,255,0.6), transparent 50%),
+        radial-gradient(circle 0.5px at 50% 75%, rgba(255,255,255,0.8), transparent 50%),
+        /* Cheek blush */
+        radial-gradient(ellipse 8px 6px at 28% 62%, rgba(255,192,203,0.25), transparent 70%),
+        radial-gradient(ellipse 8px 6px at 72% 62%, rgba(255,192,203,0.25), transparent 70%),
+        /* Left ear with fur gradient */
+        radial-gradient(ellipse 9px 30px at 25% 14%, #fafafa 0%, #f5f5f5 40%, #ebebeb 80%, #e0e0e0 100%),
+        /* Right ear with fur gradient */
+        radial-gradient(ellipse 9px 30px at 75% 14%, #fafafa 0%, #f5f5f5 40%, #ebebeb 80%, #e0e0e0 100%),
+        /* Head main gradient with realistic shading */
+        radial-gradient(ellipse at 48% 58%, #ffffff 0%, #fafafa 25%, #f5f5f5 50%, #efefef 75%, #e8e8e8 100%);
+    background-position: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    border-radius: 50% 50% 45% 45%;
+    border-radius: 50% 50% 46% 46%;
+    /* Photorealistic plush shadows */
     box-shadow:
-        inset -3px -3px 10px rgba(0,0,0,0.1),
-        inset 3px 3px 10px rgba(255,255,255,0.9),
-        0 5px 15px rgba(0,0,0,0.2);
+        /* Inner depth */
+        inset -5px -6px 15px rgba(0,0,0,0.15),
+        inset -2px -3px 8px rgba(0,0,0,0.1),
+        inset 6px 6px 15px rgba(255,255,255,1),
+        inset 3px 3px 8px rgba(255,255,255,0.9),
+        /* Ear shadows */
+        inset -1px 0px 3px rgba(0,0,0,0.1),
+        inset 1px 0px 3px rgba(0,0,0,0.1),
+        /* Outer shadows */
+        0 8px 18px rgba(0,0,0,0.25),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 1px 3px rgba(0,0,0,0.1);
     z-index: 2;
-
-    /* Eyes and nose using box-shadow trick */
-    background-image:
-        /* Eyes */
-        radial-gradient(circle 3px at 38% 55%, #2d3436 100%, transparent 100%),
-        radial-gradient(circle 3px at 62% 55%, #2d3436 100%, transparent 100%),
-        /* Nose */
-        radial-gradient(ellipse 4px 3px at 50% 68%, #ffb6c1 100%, transparent 100%),
-        /* Left ear */
-        radial-gradient(ellipse 8px 28px at 25% 15%, #f5f5f5, #e8e8e8),
-        /* Right ear */
-        radial-gradient(ellipse 8px 28px at 75% 15%, #f5f5f5, #e8e8e8),
-        /* Head */
-        radial-gradient(circle at 50% 60%, #ffffff, #f5f5f5);
+    background-blend-mode: normal;
 }
 
 /* Outfit overlays for each bunny type */
 
-/* BRIDAL BUNNY - White dress with veil */
+/* BRIDAL BUNNY - White satin dress with veil */
 .bunny.bridal .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 20%, #ffffff, #fff9fc, #ffe6f0);
-    border-radius: 45% 45% 65% 65%;
+    /* Photorealistic white satin wedding dress */
+    background:
+        /* Lace texture details */
+        radial-gradient(circle 1px at 25% 30%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 1px at 75% 35%, rgba(255,255,255,0.8), transparent 50%),
+        radial-gradient(circle 0.8px at 40% 55%, rgba(255,240,245,0.9), transparent 50%),
+        radial-gradient(circle 0.8px at 60% 60%, rgba(255,240,245,0.8), transparent 50%),
+        /* Satin fabric shine */
+        linear-gradient(135deg,
+            transparent 0%,
+            rgba(255,255,255,0.6) 35%,
+            transparent 40%,
+            transparent 60%,
+            rgba(255,255,255,0.4) 65%,
+            transparent 70%),
+        /* Soft fabric folds */
+        radial-gradient(ellipse 20px 15px at 30% 50%, rgba(255,220,230,0.15), transparent 80%),
+        radial-gradient(ellipse 20px 15px at 70% 55%, rgba(255,220,230,0.12), transparent 80%),
+        /* Base dress gradient */
+        radial-gradient(ellipse at 50% 20%, #ffffff, #fffbfd 40%, #fff5f8 70%, #ffe9f0);
+    border-radius: 45% 45% 66% 66%;
     box-shadow:
-        inset -5px -8px 15px rgba(255,192,203,0.15),
-        inset 5px 5px 15px rgba(255,255,255,1),
-        0 8px 20px rgba(0,0,0,0.25),
-        0 0 25px rgba(255,255,255,0.8);
+        /* Inner satin depth */
+        inset -8px -12px 20px rgba(255,192,203,0.18),
+        inset -3px -5px 10px rgba(255,192,203,0.12),
+        inset 8px 8px 20px rgba(255,255,255,1),
+        inset 3px 3px 8px rgba(255,255,255,0.95),
+        /* Outer glow */
+        0 12px 25px rgba(0,0,0,0.25),
+        0 6px 12px rgba(0,0,0,0.15),
+        0 0 30px rgba(255,255,255,0.9),
+        0 0 15px rgba(255,240,250,0.7);
+    background-blend-mode: soft-light, soft-light, soft-light, soft-light, screen, multiply, multiply, normal;
 }
 
 .bunny.bridal::after {
-    /* Veil on top of head */
+    /* Flowing sheer veil with realistic transparency */
     content: '';
     position: absolute;
-    width: 35px;
-    height: 40px;
-    background: linear-gradient(180deg,
-        rgba(255,255,255,0.9) 0%,
-        rgba(255,255,255,0.7) 50%,
-        rgba(255,255,255,0.3) 100%);
-    top: -5px;
+    width: 38px;
+    height: 42px;
+    background:
+        /* Lace edge pattern */
+        radial-gradient(circle 0.8px at 20% 15%, rgba(255,255,255,1), transparent 40%),
+        radial-gradient(circle 0.8px at 40% 12%, rgba(255,255,255,0.95), transparent 40%),
+        radial-gradient(circle 0.8px at 60% 12%, rgba(255,255,255,0.95), transparent 40%),
+        radial-gradient(circle 0.8px at 80% 15%, rgba(255,255,255,1), transparent 40%),
+        /* Soft tulle shimmer */
+        linear-gradient(150deg,
+            rgba(255,255,255,0.95) 0%,
+            rgba(255,250,252,0.85) 30%,
+            rgba(255,245,250,0.7) 60%,
+            rgba(255,240,248,0.4) 100%);
+    top: -6px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 50% 50% 60% 60%;
-    border: 2px solid rgba(255,255,255,0.95);
-    box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    border-radius: 50% 50% 62% 62%;
+    border: 2px solid rgba(255,255,255,0.98);
+    box-shadow:
+        inset 2px 2px 8px rgba(255,255,255,0.9),
+        inset -1px -1px 5px rgba(255,192,203,0.1),
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 10px rgba(255,240,250,0.7),
+        0 2px 8px rgba(0,0,0,0.1);
     z-index: 3;
+    backdrop-filter: blur(0.5px);
 }
 
-/* CHEF BUNNY - Chef's hat */
+/* CHEF BUNNY - Clean white uniform */
 .bunny.chef .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #ffffff, #f8f8f8);
+    /* Photorealistic chef uniform with cotton texture */
+    background:
+        /* Fabric weave texture */
+        radial-gradient(circle 0.5px at 20% 25%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 0.5px at 60% 40%, rgba(248,248,248,0.8), transparent 50%),
+        radial-gradient(circle 0.5px at 35% 65%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 0.5px at 75% 75%, rgba(248,248,248,0.8), transparent 50%),
+        /* Clean cotton gradient */
+        radial-gradient(ellipse at 50% 35%, #ffffff, #fafafa 50%, #f5f5f5 80%, #f0f0f0);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.08),
+        inset 8px 8px 20px rgba(255,255,255,1),
+        0 12px 25px rgba(0,0,0,0.28),
+        0 6px 12px rgba(0,0,0,0.18);
+    background-blend-mode: soft-light, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.chef::after {
-    /* Chef's hat */
+    /* Puffy chef's toque with starch stiffness */
     content: '';
     position: absolute;
-    width: 40px;
-    height: 25px;
-    background: radial-gradient(ellipse at 50% 40%, #ffffff, #f0f0f0);
-    top: -8px;
+    width: 42px;
+    height: 28px;
+    background:
+        /* Fabric pleats */
+        repeating-linear-gradient(90deg,
+            transparent 0px,
+            rgba(0,0,0,0.05) 6px,
+            transparent 7px,
+            transparent 13px),
+        /* Puffy cotton texture */
+        radial-gradient(circle 0.6px at 30% 30%, rgba(255,255,255,1), transparent 50%),
+        radial-gradient(circle 0.6px at 70% 35%, rgba(255,255,255,0.95), transparent 50%),
+        radial-gradient(circle 0.6px at 50% 60%, rgba(255,255,255,0.9), transparent 50%),
+        /* Starched cotton gradient */
+        radial-gradient(ellipse at 50% 35%, #ffffff, #fafafa 50%, #f2f2f2 85%, #ececec);
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 50% 50% 10% 10%;
-    border-bottom: 4px solid #f0f0f0;
+    border-radius: 50% 50% 12% 12%;
+    border-bottom: 5px solid #ececec;
     box-shadow:
-        inset 0 -3px 8px rgba(0,0,0,0.1),
-        0 3px 10px rgba(0,0,0,0.3);
+        inset 0 -5px 12px rgba(0,0,0,0.15),
+        inset 0 3px 10px rgba(255,255,255,1),
+        0 5px 15px rgba(0,0,0,0.35),
+        0 2px 8px rgba(0,0,0,0.2);
     z-index: 3;
+    background-blend-mode: multiply, soft-light, soft-light, soft-light, normal;
 }
 
-/* ASTRONAUT BUNNY - Space helmet */
+/* ASTRONAUT BUNNY - Space suit with realistic materials */
 .bunny.astronaut .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #d4e6e8, #a8c5ca, #87a6aa);
+    /* Technical space suit fabric */
+    background:
+        /* Reflective patches */
+        radial-gradient(circle 2px at 25% 30%, rgba(180,220,235,0.6), transparent 60%),
+        radial-gradient(circle 1.5px at 70% 45%, rgba(180,220,235,0.5), transparent 60%),
+        /* Suit panel seams */
+        linear-gradient(90deg,
+            transparent 48%,
+            rgba(100,120,130,0.3) 49%,
+            rgba(100,120,130,0.3) 51%,
+            transparent 52%),
+        /* Technical fabric texture */
+        radial-gradient(circle 0.5px at 30% 35%, rgba(200,220,230,0.7), transparent 50%),
+        radial-gradient(circle 0.5px at 65% 55%, rgba(200,220,230,0.6), transparent 50%),
+        radial-gradient(circle 0.5px at 45% 70%, rgba(200,220,230,0.7), transparent 50%),
+        /* Space suit gradient with metallic sheen */
+        radial-gradient(ellipse at 45% 30%, #e0f0f5, #d4e6e8 40%, #a8c5ca 70%, #87a6aa);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.2),
+        inset 8px 8px 20px rgba(255,255,255,0.7),
+        0 12px 25px rgba(0,0,0,0.35),
+        0 6px 12px rgba(0,0,0,0.22);
+    background-blend-mode: screen, screen, multiply, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.astronaut::before {
-    /* Helmet glass */
+    /* Crystal-clear polycarbonate helmet visor */
     content: '';
     position: absolute;
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle at 30% 30%,
-        rgba(135,206,250,0.3),
-        rgba(100,180,220,0.4));
+    width: 52px;
+    height: 52px;
+    background:
+        /* Realistic glass reflections */
+        radial-gradient(circle 8px at 28% 25%, rgba(255,255,255,0.9), transparent 100%),
+        radial-gradient(ellipse 15px 20px at 35% 30%, rgba(255,255,255,0.4), transparent 70%),
+        radial-gradient(circle 4px at 70% 70%, rgba(255,255,255,0.6), transparent 100%),
+        /* Sky reflection */
+        linear-gradient(160deg,
+            rgba(180,220,250,0.25) 0%,
+            rgba(135,200,235,0.35) 40%,
+            rgba(100,170,210,0.3) 100%),
+        /* Glass transparency */
+        radial-gradient(circle at 45% 45%,
+            rgba(200,230,250,0.15),
+            rgba(160,210,235,0.25));
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
-    border: 3px solid rgba(180,200,210,0.8);
+    border: 4px solid rgba(160,180,195,0.9);
     box-shadow:
-        inset -5px -5px 15px rgba(255,255,255,0.6),
-        inset 5px 5px 15px rgba(0,0,0,0.1),
-        0 5px 15px rgba(0,0,0,0.3);
+        /* Inner glass depth */
+        inset -6px -6px 18px rgba(255,255,255,0.7),
+        inset 6px 6px 18px rgba(0,0,0,0.15),
+        inset 0 0 25px rgba(180,220,250,0.2),
+        /* Outer reflections */
+        0 0 8px rgba(180,220,250,0.5),
+        0 8px 20px rgba(0,0,0,0.35),
+        0 3px 10px rgba(0,0,0,0.25);
     z-index: 3;
+    background-blend-mode: screen, screen, screen, multiply, normal;
 }
 
-/* PIRATE BUNNY - Eye patch and dark clothes */
+/* PIRATE BUNNY - Weathered leather vest */
 .bunny.pirate .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #4a4a4a, #2d3436, #1a1a1a);
+    /* Worn leather pirate vest */
+    background:
+        /* Leather texture scratches */
+        linear-gradient(45deg,
+            transparent 0%,
+            rgba(100,100,100,0.15) 48%,
+            transparent 52%),
+        linear-gradient(135deg,
+            transparent 0%,
+            rgba(80,80,80,0.12) 48%,
+            transparent 52%),
+        /* Worn spots */
+        radial-gradient(circle 2px at 30% 40%, rgba(60,60,60,0.3), transparent 70%),
+        radial-gradient(circle 1.5px at 65% 60%, rgba(50,50,50,0.25), transparent 70%),
+        /* Leather grain */
+        radial-gradient(circle 0.5px at 25% 30%, rgba(80,80,80,0.4), transparent 50%),
+        radial-gradient(circle 0.5px at 55% 50%, rgba(70,70,70,0.35), transparent 50%),
+        radial-gradient(circle 0.5px at 40% 70%, rgba(80,80,80,0.4), transparent 50%),
+        /* Aged leather gradient */
+        radial-gradient(ellipse at 45% 35%, #5a5a5a, #4a4a4a 40%, #3a3a3a 70%, #2d3436 85%, #1a1a1a);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.4),
+        inset 8px 8px 20px rgba(120,120,120,0.3),
+        0 12px 25px rgba(0,0,0,0.45),
+        0 6px 12px rgba(0,0,0,0.3);
+    background-blend-mode: multiply, multiply, multiply, multiply, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.pirate::before {
-    /* Eye patch */
+    /* Leather eye patch with strap */
     content: '';
     position: absolute;
-    width: 18px;
-    height: 12px;
-    background: #000000;
+    width: 20px;
+    height: 14px;
+    background:
+        /* Leather grain on patch */
+        radial-gradient(circle 0.4px at 40% 40%, rgba(50,50,50,0.6), transparent 50%),
+        radial-gradient(circle 0.4px at 70% 60%, rgba(50,50,50,0.5), transparent 50%),
+        /* Black leather */
+        radial-gradient(ellipse at 40% 40%, #1a1a1a, #0a0a0a);
     top: 25px;
     left: 55%;
     transform: translateX(-50%);
     border-radius: 50%;
-    border: 2px solid #2d3436;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    border: 2.5px solid rgba(60,60,60,0.8);
+    box-shadow:
+        inset -2px -2px 5px rgba(0,0,0,0.7),
+        inset 1px 1px 3px rgba(80,80,80,0.4),
+        0 3px 8px rgba(0,0,0,0.6);
     z-index: 4;
 }
 
 .bunny.pirate::after {
-    /* Pirate bandana */
+    /* Red cotton bandana with fabric folds */
     content: '';
     position: absolute;
-    width: 50px;
-    height: 20px;
-    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    width: 52px;
+    height: 22px;
+    background:
+        /* Fabric folds */
+        repeating-linear-gradient(90deg,
+            transparent 0px,
+            rgba(0,0,0,0.15) 8px,
+            transparent 9px,
+            transparent 17px),
+        /* Cotton texture */
+        radial-gradient(circle 0.5px at 30% 40%, rgba(255,120,120,0.5), transparent 50%),
+        radial-gradient(circle 0.5px at 70% 50%, rgba(255,100,100,0.4), transparent 50%),
+        radial-gradient(circle 0.5px at 50% 70%, rgba(255,120,120,0.5), transparent 50%),
+        /* Red bandana gradient */
+        linear-gradient(135deg, #c0392b 0%, #d63447 40%, #e74c3c 70%, #c0392b 100%);
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50% 50% 0 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow:
+        inset -2px -3px 8px rgba(0,0,0,0.3),
+        inset 2px 2px 6px rgba(255,100,100,0.3),
+        0 3px 10px rgba(0,0,0,0.4);
     z-index: 3;
+    background-blend-mode: multiply, soft-light, soft-light, soft-light, normal;
 }
 
-/* NINJA BUNNY - Mask */
+/* NINJA BUNNY - Stealth black gi */
 .bunny.ninja .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #1a1a1a, #000000);
+    /* Black ninja gi with silk texture */
+    background:
+        /* Silk weave texture */
+        radial-gradient(circle 0.4px at 25% 30%, rgba(40,40,40,0.6), transparent 50%),
+        radial-gradient(circle 0.4px at 60% 50%, rgba(30,30,30,0.5), transparent 50%),
+        radial-gradient(circle 0.4px at 40% 70%, rgba(40,40,40,0.6), transparent 50%),
+        /* Fabric folds */
+        linear-gradient(120deg,
+            transparent 0%,
+            rgba(50,50,50,0.2) 48%,
+            transparent 52%),
+        /* Black silk gradient */
+        radial-gradient(ellipse at 45% 35%, #2a2a2a, #1a1a1a 50%, #0d0d0d 80%, #000000);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.6),
+        inset 8px 8px 20px rgba(80,80,80,0.2),
+        0 12px 25px rgba(0,0,0,0.6),
+        0 6px 12px rgba(0,0,0,0.4);
+    background-blend-mode: soft-light, soft-light, soft-light, multiply, normal;
 }
 
 .bunny.ninja::after {
-    /* Ninja mask covering face */
+    /* Tight ninja mask covering face */
     content: '';
     position: absolute;
-    width: 48px;
-    height: 35px;
-    background: #000000;
+    width: 49px;
+    height: 36px;
+    background:
+        /* Eye slits with subtle glow */
+        linear-gradient(90deg, transparent 35%, rgba(240,240,240,0.95) 36%, rgba(255,255,255,0.9) 39%, rgba(240,240,240,0.95) 42%, transparent 43%),
+        linear-gradient(90deg, transparent 57%, rgba(240,240,240,0.95) 58%, rgba(255,255,255,0.9) 61%, rgba(240,240,240,0.95) 64%, transparent 65%),
+        /* Mask fabric texture */
+        radial-gradient(circle 0.4px at 30% 30%, rgba(30,30,30,0.7), transparent 50%),
+        radial-gradient(circle 0.4px at 70% 50%, rgba(20,20,20,0.6), transparent 50%),
+        /* Black cloth */
+        radial-gradient(ellipse at 50% 50%, #1a1a1a, #0a0a0a 60%, #000000);
     top: 15px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 45%;
     box-shadow:
-        inset -2px -2px 5px rgba(50,50,50,0.5),
-        0 3px 10px rgba(0,0,0,0.5);
+        inset -3px -3px 8px rgba(0,0,0,0.7),
+        inset 3px 3px 8px rgba(60,60,60,0.3),
+        0 5px 15px rgba(0,0,0,0.6);
     z-index: 3;
-    /* Eye slits */
-    background-image:
-        linear-gradient(90deg, transparent 35%, rgba(255,255,255,0.9) 36%, rgba(255,255,255,0.9) 42%, transparent 43%),
-        linear-gradient(90deg, transparent 57%, rgba(255,255,255,0.9) 58%, rgba(255,255,255,0.9) 64%, transparent 65%);
+    background-blend-mode: screen, screen, soft-light, soft-light, normal;
 }
 
-/* WIZARD BUNNY - Pointed hat with stars */
+/* WIZARD BUNNY - Mystical velvet robe */
 .bunny.wizard .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #a29bfe, #8577d4, #6c5ce7);
+    /* Rich purple velvet robe */
+    background:
+        /* Velvet pile texture */
+        radial-gradient(circle 0.5px at 25% 30%, rgba(180,170,254,0.6), transparent 50%),
+        radial-gradient(circle 0.5px at 65% 45%, rgba(162,155,254,0.5), transparent 50%),
+        radial-gradient(circle 0.5px at 40% 65%, rgba(180,170,254,0.6), transparent 50%),
+        radial-gradient(circle 0.5px at 70% 75%, rgba(162,155,254,0.5), transparent 50%),
+        /* Fabric shimmer */
+        linear-gradient(135deg,
+            transparent 0%,
+            rgba(200,195,254,0.3) 48%,
+            transparent 52%),
+        /* Rich velvet gradient */
+        radial-gradient(ellipse at 45% 35%, #b5aefe, #a29bfe 40%, #8577d4 70%, #6c5ce7);
+    box-shadow:
+        inset -8px -12px 20px rgba(108,92,231,0.4),
+        inset 8px 8px 20px rgba(200,195,254,0.5),
+        0 12px 25px rgba(0,0,0,0.35),
+        0 6px 12px rgba(108,92,231,0.2),
+        0 0 20px rgba(162,155,254,0.3);
+    background-blend-mode: soft-light, soft-light, soft-light, soft-light, screen, normal;
 }
 
 .bunny.wizard::after {
-    /* Wizard hat */
+    /* Tall pointed wizard hat with celestial magic */
     content: '⭐';
     position: absolute;
-    width: 45px;
-    height: 50px;
-    background: linear-gradient(180deg, #6c5ce7, #8577d4, #a29bfe);
-    top: -25px;
+    width: 46px;
+    height: 52px;
+    background:
+        /* Mystical shimmer */
+        radial-gradient(circle 1px at 50% 25%, rgba(255,255,255,0.8), transparent 70%),
+        radial-gradient(circle 0.8px at 35% 40%, rgba(255,215,0,0.6), transparent 60%),
+        radial-gradient(circle 0.8px at 65% 35%, rgba(255,215,0,0.5), transparent 60%),
+        /* Velvet hat texture */
+        radial-gradient(circle 0.5px at 30% 50%, rgba(180,170,254,0.5), transparent 50%),
+        radial-gradient(circle 0.5px at 70% 60%, rgba(162,155,254,0.4), transparent 50%),
+        /* Purple velvet gradient */
+        linear-gradient(175deg, #7c6ce7 0%, #6c5ce7 35%, #8577d4 70%, #a29bfe 100%);
+    top: -26px;
     left: 50%;
     transform: translateX(-50%);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    box-shadow:
+        inset -3px -5px 12px rgba(108,92,231,0.5),
+        inset 3px 3px 10px rgba(200,195,254,0.4),
+        0 8px 20px rgba(0,0,0,0.5),
+        0 0 15px rgba(162,155,254,0.4);
     z-index: 3;
     font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 10px;
+    filter: drop-shadow(0 0 3px rgba(255,215,0,0.6));
+    background-blend-mode: screen, screen, screen, soft-light, soft-light, normal;
 }
 
-/* KNIGHT BUNNY - Helmet with visor */
+/* KNIGHT BUNNY - Polished steel armor */
 .bunny.knight .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #bdc3c7, #95a5a6, #7f8c8d);
+    /* Brushed steel chainmail */
+    background:
+        /* Metal scratches */
+        linear-gradient(60deg,
+            transparent 0%,
+            rgba(200,210,215,0.3) 48%,
+            transparent 52%),
+        linear-gradient(130deg,
+            transparent 0%,
+            rgba(180,190,195,0.25) 48%,
+            transparent 52%),
+        /* Chain texture */
+        radial-gradient(circle 1px at 25% 30%, rgba(220,230,235,0.5), transparent 60%),
+        radial-gradient(circle 0.8px at 60% 45%, rgba(200,210,215,0.4), transparent 60%),
+        radial-gradient(circle 1px at 40% 65%, rgba(220,230,235,0.5), transparent 60%),
+        /* Metallic sheen */
+        linear-gradient(150deg,
+            #d0d6d8 0%,
+            #bdc3c7 30%,
+            #95a5a6 60%,
+            #7f8c8d 100%);
     box-shadow:
-        inset -5px -8px 15px rgba(0,0,0,0.3),
-        inset 5px 5px 15px rgba(255,255,255,0.9),
-        0 8px 20px rgba(0,0,0,0.35);
+        inset -8px -12px 20px rgba(0,0,0,0.35),
+        inset -3px -5px 10px rgba(0,0,0,0.25),
+        inset 8px 8px 20px rgba(255,255,255,0.95),
+        inset 3px 3px 8px rgba(255,255,255,0.85),
+        0 12px 25px rgba(0,0,0,0.4),
+        0 6px 12px rgba(0,0,0,0.28);
+    background-blend-mode: overlay, overlay, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.knight::after {
-    /* Knight helmet */
+    /* Polished steel helmet with battle scars */
     content: '';
     position: absolute;
-    width: 48px;
-    height: 45px;
-    background: linear-gradient(180deg, #bdc3c7, #95a5a6);
+    width: 49px;
+    height: 46px;
+    background:
+        /* Dark visor slit */
+        linear-gradient(90deg,
+            transparent 20%,
+            rgba(0,0,0,0.85) 22%,
+            rgba(0,0,0,0.75) 50%,
+            rgba(0,0,0,0.85) 78%,
+            transparent 80%),
+        /* Metal scratches on helmet */
+        linear-gradient(45deg,
+            transparent 0%,
+            rgba(150,165,170,0.4) 48%,
+            transparent 52%),
+        /* Polished steel texture */
+        radial-gradient(circle 0.8px at 30% 25%, rgba(230,240,245,0.6), transparent 50%),
+        radial-gradient(circle 0.6px at 70% 35%, rgba(220,230,235,0.5), transparent 50%),
+        /* Brushed metal gradient */
+        linear-gradient(175deg, #d5dbdd 0%, #bdc3c7 40%, #95a5a6 75%, #8a9799 100%);
+    background-position: 0 55%, center, center, center, center;
+    background-size: 100% 9px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-repeat: no-repeat;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 50% 50% 30% 30%;
+    border-radius: 50% 50% 32% 32%;
     box-shadow:
-        inset -3px -3px 8px rgba(0,0,0,0.3),
+        inset -5px -6px 15px rgba(0,0,0,0.4),
+        inset -2px -3px 8px rgba(0,0,0,0.3),
+        inset 6px 6px 15px rgba(255,255,255,0.9),
         inset 3px 3px 8px rgba(255,255,255,0.8),
-        0 5px 15px rgba(0,0,0,0.4);
+        0 8px 20px rgba(0,0,0,0.5),
+        0 3px 10px rgba(0,0,0,0.35);
     z-index: 3;
-    /* Visor slit */
-    background-image: linear-gradient(90deg,
-        transparent 20%,
-        rgba(0,0,0,0.7) 22%,
-        rgba(0,0,0,0.7) 78%,
-        transparent 80%);
-    background-position: 0 55%;
-    background-size: 100% 8px;
-    background-repeat: no-repeat;
+    background-blend-mode: multiply, overlay, soft-light, soft-light, normal;
 }
 
-/* DOCTOR BUNNY - Stethoscope */
+/* DOCTOR BUNNY - Crisp white medical coat */
 .bunny.doctor .bunny-sprite::before {
-    background: radial-gradient(ellipse at 50% 40%, #ffffff, #f8f8f8, #ecf0f1);
+    /* Starched white lab coat */
+    background:
+        /* Medical coat buttons */
+        radial-gradient(circle 1.5px at 50% 35%, rgba(220,230,240,0.9), transparent 100%),
+        radial-gradient(circle 1.5px at 50% 55%, rgba(220,230,240,0.9), transparent 100%),
+        /* Crisp fabric texture */
+        radial-gradient(circle 0.5px at 25% 30%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 0.5px at 65% 45%, rgba(248,248,248,0.8), transparent 50%),
+        radial-gradient(circle 0.5px at 40% 65%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 0.5px at 70% 75%, rgba(248,248,248,0.8), transparent 50%),
+        /* Clean white gradient */
+        radial-gradient(ellipse at 50% 35%, #ffffff, #fafafa 50%, #f5f5f5 80%, #ecf0f1);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.06),
+        inset 8px 8px 20px rgba(255,255,255,1),
+        0 12px 25px rgba(0,0,0,0.28),
+        0 6px 12px rgba(0,0,0,0.18);
+    background-blend-mode: multiply, multiply, soft-light, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.doctor::before {
-    /* Stethoscope */
+    /* Professional stethoscope with rubber tubing */
     content: '';
     position: absolute;
-    width: 30px;
-    height: 35px;
-    border: 3px solid #2c3e50;
-    border-radius: 50% 50% 45% 45%;
+    width: 32px;
+    height: 37px;
+    border: 3.5px solid #2c3e50;
+    border-radius: 50% 50% 46% 46%;
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
-    background: transparent;
-    box-shadow: inset 0 -8px 0 #2c3e50;
+    background:
+        /* Rubber tube texture */
+        repeating-linear-gradient(0deg,
+            transparent 0px,
+            rgba(44,62,80,0.1) 3px,
+            transparent 4px,
+            transparent 6px),
+        transparent;
+    box-shadow:
+        /* Tube depth */
+        inset 0 -10px 0 #2c3e50,
+        inset -2px -2px 5px rgba(0,0,0,0.3),
+        inset 2px 2px 5px rgba(100,120,140,0.2),
+        /* Outer shadow */
+        0 3px 8px rgba(0,0,0,0.3);
     z-index: 2;
 }
 
-/* ARTIST BUNNY - Beret and paint splatter */
+/* ARTIST BUNNY - Paint-splattered smock with beret */
 .bunny.artist .bunny-sprite::before {
+    /* White smock with realistic acrylic paint splatters */
     background:
-        radial-gradient(circle 6px at 30% 25%, #ff6b6b 100%, transparent 100%),
-        radial-gradient(circle 5px at 70% 35%, #4ecdc4 100%, transparent 100%),
-        radial-gradient(circle 4px at 45% 50%, #ffe66d 100%, transparent 100%),
-        radial-gradient(circle 5px at 60% 60%, #a29bfe 100%, transparent 100%),
-        radial-gradient(ellipse at 50% 40%, #ffffff, #f5f5f5);
+        /* Glossy red paint splatter */
+        radial-gradient(circle 6.5px at 30% 25%, #ff6b6b 60%, rgba(255,107,107,0.8) 85%, transparent 100%),
+        radial-gradient(circle 2px at 28% 23%, rgba(255,150,150,0.9), transparent 100%),
+        /* Turquoise paint drip */
+        radial-gradient(circle 5.5px at 70% 35%, #4ecdc4 65%, rgba(78,205,196,0.7) 90%, transparent 100%),
+        radial-gradient(ellipse 2px 4px at 70% 40%, rgba(78,205,196,0.6), transparent 100%),
+        /* Yellow paint blob */
+        radial-gradient(circle 4.5px at 45% 50%, #ffe66d 70%, rgba(255,230,109,0.8) 90%, transparent 100%),
+        radial-gradient(circle 1.5px at 44% 48%, rgba(255,240,150,0.9), transparent 100%),
+        /* Purple paint spot */
+        radial-gradient(circle 5.5px at 60% 60%, #a29bfe 65%, rgba(162,155,254,0.75) 88%, transparent 100%),
+        radial-gradient(circle 1.8px at 61% 58%, rgba(180,170,254,0.8), transparent 100%),
+        /* Canvas texture on smock */
+        radial-gradient(circle 0.5px at 25% 35%, rgba(255,255,255,0.9), transparent 50%),
+        radial-gradient(circle 0.5px at 65% 48%, rgba(248,248,248,0.8), transparent 50%),
+        radial-gradient(circle 0.5px at 40% 70%, rgba(255,255,255,0.9), transparent 50%),
+        /* White smock base */
+        radial-gradient(ellipse at 50% 35%, #ffffff, #fafafa 50%, #f5f5f5);
+    box-shadow:
+        inset -8px -12px 20px rgba(0,0,0,0.08),
+        inset 8px 8px 20px rgba(255,255,255,1),
+        0 12px 25px rgba(0,0,0,0.28),
+        0 6px 12px rgba(0,0,0,0.18);
+    background-blend-mode: normal, screen, normal, multiply, normal, screen, normal, screen, soft-light, soft-light, soft-light, normal;
 }
 
 .bunny.artist::after {
-    /* Artist beret */
+    /* Classic wool beret with fabric texture */
     content: '';
     position: absolute;
-    width: 50px;
-    height: 18px;
-    background: radial-gradient(ellipse at 50% 100%, #2d3436, #1a1a1a);
-    top: -5px;
+    width: 52px;
+    height: 19px;
+    background:
+        /* Wool texture */
+        radial-gradient(circle 0.5px at 25% 40%, rgba(80,80,80,0.5), transparent 50%),
+        radial-gradient(circle 0.5px at 55% 50%, rgba(70,70,70,0.4), transparent 50%),
+        radial-gradient(circle 0.5px at 75% 45%, rgba(80,80,80,0.5), transparent 50%),
+        /* Fabric folds */
+        radial-gradient(ellipse 15px 8px at 35% 50%, rgba(0,0,0,0.15), transparent 80%),
+        radial-gradient(ellipse 12px 6px at 65% 55%, rgba(0,0,0,0.12), transparent 80%),
+        /* Black wool gradient */
+        radial-gradient(ellipse at 50% 95%, #3d3d3d, #2d3436 50%, #1a1a1a);
+    top: -6px;
     left: 50%;
-    transform: translateX(-50%) rotate(-5deg);
+    transform: translateX(-50%) rotate(-6deg);
     border-radius: 50%;
     box-shadow:
-        inset -3px -3px 8px rgba(0,0,0,0.4),
-        inset 3px 3px 8px rgba(100,100,100,0.3),
-        0 3px 10px rgba(0,0,0,0.3);
+        inset -4px -4px 10px rgba(0,0,0,0.5),
+        inset 4px 4px 10px rgba(120,120,120,0.25),
+        0 4px 12px rgba(0,0,0,0.4);
     z-index: 3;
+    background-blend-mode: soft-light, soft-light, soft-light, multiply, multiply, normal;
 }
 
 /* Furniture Inventory Panel */
