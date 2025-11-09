@@ -8,24 +8,33 @@ class BunnyIslandGame {
             bunnies: [
                 { id: 1, type: 'bridal', name: 'Bridal Bunny', unlocked: true }
             ],
-            furniture: [],
+            furniture: [], // Furniture available to place in castle
             mergeGrid: Array(25).fill(null), // 5x5 grid
+            currentRoom: 0,
+            rooms: [
+                { id: 0, name: 'Living Room', unlocked: true, furniture: [] },
+                { id: 1, name: 'Bedroom', unlocked: false, unlockLevel: 20, furniture: [] },
+                { id: 2, name: 'Kitchen', unlocked: false, unlockLevel: 40, furniture: [] },
+                { id: 3, name: 'Garden', unlocked: false, unlockLevel: 60, furniture: [] },
+            ]
         };
 
-        this.carrotTypes = ['🥕', '🥕', '🥕', '🥕', '🥕', '🥕', '🥕', '🥕', '🥬', '🌽'];
         this.carrotSpawnInterval = null;
         this.currentScreen = 'main-menu';
+        this.draggedItem = null;
+        this.dragSource = null;
+        this.placingFurniture = null;
 
         // Furniture merge rules - thematic combinations
         this.furnitureMergeRules = {
-            'lamp-lamp': { result: 'chandelier', icon: '💎💡', name: 'Chandelier' },
-            'drawer-drawer': { result: 'wardrobe', icon: '🚪🗄️', name: 'Wardrobe' },
-            'chair-chair': { result: 'sofa', icon: '🛋️', name: 'Sofa' },
-            'table-table': { result: 'dining-table', icon: '🍽️✨', name: 'Dining Table' },
-            'bed-bed': { result: 'king-bed', icon: '👑🛏️', name: 'King Bed' },
-            'plant-plant': { result: 'tree', icon: '🌳', name: 'Tree' },
-            'lamp-drawer': { result: 'lit-drawer', icon: '💡🗄️', name: 'Lit Drawer' },
-            'drawer-lamp': { result: 'lit-drawer', icon: '💡🗄️', name: 'Lit Drawer' },
+            'lamp-lamp': { result: 'chandelier', name: 'Chandelier' },
+            'drawer-drawer': { result: 'wardrobe', name: 'Wardrobe' },
+            'chair-chair': { result: 'sofa', name: 'Sofa' },
+            'table-table': { result: 'dining-table', name: 'Dining Table' },
+            'bed-bed': { result: 'king-bed', name: 'King Bed' },
+            'plant-plant': { result: 'tree', name: 'Tree' },
+            'lamp-drawer': { result: 'lit-drawer', name: 'Lit Drawer' },
+            'drawer-lamp': { result: 'lit-drawer', name: 'Lit Drawer' },
         };
 
         this.init();
@@ -36,6 +45,7 @@ class BunnyIslandGame {
         this.setupEventListeners();
         this.updateUI();
         this.initMergeGrid();
+        this.checkRoomUnlocks();
     }
 
     setupEventListeners() {
@@ -65,11 +75,25 @@ class BunnyIslandGame {
             });
         });
 
-        // Day/Night toggle
+        // Castle controls
         document.getElementById('toggle-day-night').addEventListener('click', (e) => {
             const room = document.getElementById('castle-room');
             room.classList.toggle('night');
             e.target.textContent = room.classList.contains('night') ? '☀️ Day' : '🌙 Night';
+        });
+
+        // Room navigation
+        document.getElementById('prev-room').addEventListener('click', () => {
+            this.changeRoom(-1);
+        });
+
+        document.getElementById('next-room').addEventListener('click', () => {
+            this.changeRoom(1);
+        });
+
+        // Place furniture button
+        document.getElementById('place-furniture-btn').addEventListener('click', () => {
+            this.toggleFurnitureInventory();
         });
 
         // Furniture selection
@@ -88,6 +112,67 @@ class BunnyIslandGame {
         });
         document.getElementById(screenId).classList.add('active');
         this.currentScreen = screenId;
+    }
+
+    // Room Management
+    changeRoom(direction) {
+        const newRoomIndex = this.gameState.currentRoom + direction;
+        if (newRoomIndex >= 0 && newRoomIndex < this.gameState.rooms.length) {
+            const newRoom = this.gameState.rooms[newRoomIndex];
+            if (newRoom.unlocked) {
+                this.gameState.currentRoom = newRoomIndex;
+                this.updateCastle();
+                this.saveGame();
+            } else {
+                this.showNotification(`Unlock at Level ${newRoom.unlockLevel}!`);
+            }
+        }
+    }
+
+    checkRoomUnlocks() {
+        this.gameState.rooms.forEach(room => {
+            if (!room.unlocked && this.gameState.level >= room.unlockLevel) {
+                room.unlocked = true;
+                this.showNotification(`🎉 ${room.name} Unlocked! 🎉`);
+            }
+        });
+    }
+
+    toggleFurnitureInventory() {
+        const inventory = document.getElementById('furniture-inventory');
+        inventory.style.display = inventory.style.display === 'none' ? 'block' : 'block';
+        this.updateFurnitureInventory();
+    }
+
+    updateFurnitureInventory() {
+        const container = document.getElementById('available-furniture');
+        container.innerHTML = '';
+
+        this.gameState.furniture.forEach((furniture, index) => {
+            const item = document.createElement('div');
+            item.className = 'inventory-furniture-item';
+            item.draggable = true;
+            item.dataset.furnitureIndex = index;
+
+            item.innerHTML = `
+                <div class="furniture-visual ${furniture.type}-visual"></div>
+                <div class="furniture-level">${furniture.level}</div>
+            `;
+
+            // Drag events for inventory items
+            item.addEventListener('dragstart', (e) => {
+                this.draggedItem = furniture;
+                this.dragSource = 'inventory';
+                e.dataTransfer.effectAllowed = 'move';
+                item.classList.add('dragging');
+            });
+
+            item.addEventListener('dragend', (e) => {
+                item.classList.remove('dragging');
+            });
+
+            container.appendChild(item);
+        });
     }
 
     // Carrot Collection Game
@@ -181,6 +266,9 @@ class BunnyIslandGame {
         // Show level up notification
         this.showNotification(`🎉 Level ${this.gameState.level}! 🎉`);
 
+        // Check for room unlocks
+        this.checkRoomUnlocks();
+
         // Unlock new bunny every 10 levels
         if (this.gameState.level % 10 === 0) {
             this.unlockNewBunny();
@@ -192,14 +280,14 @@ class BunnyIslandGame {
 
     unlockNewBunny() {
         const bunnyTypes = [
-            { type: 'chef', name: 'Chef Bunny', icon: '👨‍🍳🐰' },
-            { type: 'astronaut', name: 'Astronaut Bunny', icon: '👨‍🚀🐰' },
-            { type: 'pirate', name: 'Pirate Bunny', icon: '🏴‍☠️🐰' },
-            { type: 'ninja', name: 'Ninja Bunny', icon: '🥷🐰' },
-            { type: 'wizard', name: 'Wizard Bunny', icon: '🧙🐰' },
-            { type: 'knight', name: 'Knight Bunny', icon: '⚔️🐰' },
-            { type: 'doctor', name: 'Doctor Bunny', icon: '👨‍⚕️🐰' },
-            { type: 'artist', name: 'Artist Bunny', icon: '🎨🐰' },
+            { type: 'chef', name: 'Chef Bunny' },
+            { type: 'astronaut', name: 'Astronaut Bunny' },
+            { type: 'pirate', name: 'Pirate Bunny' },
+            { type: 'ninja', name: 'Ninja Bunny' },
+            { type: 'wizard', name: 'Wizard Bunny' },
+            { type: 'knight', name: 'Knight Bunny' },
+            { type: 'doctor', name: 'Doctor Bunny' },
+            { type: 'artist', name: 'Artist Bunny' },
         ];
 
         const bunnyIndex = Math.floor(this.gameState.level / 10) - 1;
@@ -235,6 +323,23 @@ class BunnyIslandGame {
             cell.className = 'merge-cell';
             cell.dataset.index = i;
 
+            // Drag and drop events
+            cell.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                cell.classList.add('drag-over');
+            });
+
+            cell.addEventListener('dragleave', (e) => {
+                cell.classList.remove('drag-over');
+            });
+
+            cell.addEventListener('drop', (e) => {
+                e.preventDefault();
+                cell.classList.remove('drag-over');
+                this.handleDrop(i);
+            });
+
             cell.addEventListener('click', () => {
                 this.onCellClick(i);
             });
@@ -254,31 +359,12 @@ class BunnyIslandGame {
         const furniture = {
             type: type,
             level: level,
-            icon: this.getFurnitureIcon(type, level),
             name: this.getFurnitureName(type, level)
         };
 
         this.gameState.mergeGrid[emptyIndex] = furniture;
         this.renderMergeGrid();
         this.saveGame();
-    }
-
-    getFurnitureIcon(type, level) {
-        const baseIcons = {
-            'lamp': '💡',
-            'drawer': '🗄️',
-            'chair': '🪑',
-            'table': '🍽️',
-            'bed': '🛏️',
-            'plant': '🪴'
-        };
-
-        if (level === 1) {
-            return baseIcons[type] || '📦';
-        }
-
-        // For merged items, use the merge rule icon if available
-        return baseIcons[type] || '📦';
     }
 
     getFurnitureName(type, level) {
@@ -288,13 +374,45 @@ class BunnyIslandGame {
             'chair': 'Chair',
             'table': 'Table',
             'bed': 'Bed',
-            'plant': 'Plant'
+            'plant': 'Plant',
+            'chandelier': 'Chandelier',
+            'wardrobe': 'Wardrobe',
+            'sofa': 'Sofa',
+            'dining-table': 'Dining Table',
+            'king-bed': 'King Bed',
+            'tree': 'Tree',
+            'lit-drawer': 'Lit Drawer'
         };
 
         return baseNames[type] || 'Furniture';
     }
 
     selectedCell = null;
+    draggedFromCell = null;
+
+    handleDrop(targetIndex) {
+        if (this.dragSource === 'merge-grid' && this.draggedFromCell !== null) {
+            // Moving within grid
+            const sourceIndex = this.draggedFromCell;
+            if (targetIndex !== sourceIndex) {
+                const targetCell = this.gameState.mergeGrid[targetIndex];
+
+                if (targetCell === null) {
+                    // Move to empty cell
+                    this.gameState.mergeGrid[targetIndex] = this.gameState.mergeGrid[sourceIndex];
+                    this.gameState.mergeGrid[sourceIndex] = null;
+                } else {
+                    // Try to merge
+                    this.attemptMerge(sourceIndex, targetIndex);
+                }
+            }
+        }
+
+        this.draggedFromCell = null;
+        this.dragSource = null;
+        this.renderMergeGrid();
+        this.saveGame();
+    }
 
     onCellClick(index) {
         const cell = this.gameState.mergeGrid[index];
@@ -306,7 +424,7 @@ class BunnyIslandGame {
                 this.highlightCell(index);
             }
         } else {
-            // Second selection - try to merge
+            // Second selection - try to merge or move
             if (index === this.selectedCell) {
                 // Deselect
                 this.selectedCell = null;
@@ -355,7 +473,6 @@ class BunnyIslandGame {
             mergedItem = {
                 type: rule.result,
                 level: item1.level + 1,
-                icon: rule.icon,
                 name: rule.name
             };
         } else if (this.furnitureMergeRules[mergeKey2]) {
@@ -363,7 +480,6 @@ class BunnyIslandGame {
             mergedItem = {
                 type: rule.result,
                 level: item1.level + 1,
-                icon: rule.icon,
                 name: rule.name
             };
         } else {
@@ -371,7 +487,6 @@ class BunnyIslandGame {
             mergedItem = {
                 type: item1.type,
                 level: item1.level + 1,
-                icon: `${item1.icon}✨`,
                 name: `${item1.name} Lv${item1.level + 1}`
             };
         }
@@ -409,10 +524,25 @@ class BunnyIslandGame {
                 cell.classList.add('occupied');
                 const item = document.createElement('div');
                 item.className = 'furniture-item';
+                item.draggable = true;
+
                 item.innerHTML = `
-                    ${furniture.icon}
+                    <div class="furniture-visual ${furniture.type}-visual"></div>
                     <div class="furniture-level">${furniture.level}</div>
                 `;
+
+                // Drag events for grid items
+                item.addEventListener('dragstart', (e) => {
+                    this.draggedFromCell = index;
+                    this.dragSource = 'merge-grid';
+                    e.dataTransfer.effectAllowed = 'move';
+                    item.classList.add('dragging');
+                });
+
+                item.addEventListener('dragend', (e) => {
+                    item.classList.remove('dragging');
+                });
+
                 cell.appendChild(item);
             }
         });
@@ -421,10 +551,36 @@ class BunnyIslandGame {
     // Castle
     updateCastle() {
         const castleRoom = document.getElementById('castle-room');
+        const currentRoom = this.gameState.rooms[this.gameState.currentRoom];
 
-        // Update bunnies in castle
-        castleRoom.querySelectorAll('.bunny').forEach(bunny => bunny.remove());
+        // Update room name
+        document.getElementById('current-room-name').textContent = currentRoom.name;
 
+        // Clear room
+        castleRoom.innerHTML = '';
+
+        // Add drop zone for furniture placement
+        castleRoom.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        castleRoom.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (this.dragSource === 'inventory' && this.draggedItem) {
+                const rect = castleRoom.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                this.placeFurnitureInRoom(this.draggedItem, x, y);
+            }
+        });
+
+        // Render placed furniture
+        currentRoom.furniture.forEach((furnitureData) => {
+            this.renderCastleFurniture(furnitureData);
+        });
+
+        // Add bunnies
         this.gameState.bunnies.forEach((bunny, index) => {
             if (bunny.unlocked) {
                 const bunnyElement = document.createElement('div');
@@ -432,14 +588,14 @@ class BunnyIslandGame {
                 bunnyElement.id = `bunny-${bunny.id}`;
 
                 // Random position
-                const x = 20 + (index * 15) % 80;
-                const y = 20 + (index * 20) % 60;
+                const x = 20 + (index * 15) % 60;
+                const y = 20 + (index * 20) % 50;
                 bunnyElement.style.left = `${x}%`;
                 bunnyElement.style.top = `${y}%`;
 
+                // CSS-based bunny sprite
                 bunnyElement.innerHTML = `
-                    <div class="bunny-sprite">${this.getBunnyIcon(bunny.type)}</div>
-                    <div class="bunny-name">${bunny.name}</div>
+                    <div class="bunny-sprite ${bunny.type}"></div>
                 `;
 
                 castleRoom.appendChild(bunnyElement);
@@ -448,21 +604,45 @@ class BunnyIslandGame {
                 this.animateBunny(bunnyElement);
             }
         });
+
+        this.updateFurnitureInventory();
     }
 
-    getBunnyIcon(type) {
-        const icons = {
-            'bridal': '👰🐰',
-            'chef': '👨‍🍳🐰',
-            'astronaut': '👨‍🚀🐰',
-            'pirate': '🏴‍☠️🐰',
-            'ninja': '🥷🐰',
-            'wizard': '🧙🐰',
-            'knight': '⚔️🐰',
-            'doctor': '👨‍⚕️🐰',
-            'artist': '🎨🐰'
+    placeFurnitureInRoom(furniture, x, y) {
+        const currentRoom = this.gameState.rooms[this.gameState.currentRoom];
+
+        // Add to room's furniture list
+        const furnitureData = {
+            ...furniture,
+            x: x,
+            y: y,
+            id: Date.now()
         };
-        return icons[type] || '🐰';
+
+        currentRoom.furniture.push(furnitureData);
+
+        // Remove from available furniture
+        const index = this.gameState.furniture.findIndex(f => f === furniture);
+        if (index > -1) {
+            this.gameState.furniture.splice(index, 1);
+        }
+
+        this.saveGame();
+        this.updateCastle();
+    }
+
+    renderCastleFurniture(furnitureData) {
+        const castleRoom = document.getElementById('castle-room');
+        const furnitureElement = document.createElement('div');
+        furnitureElement.className = 'castle-furniture';
+        furnitureElement.style.left = `${furnitureData.x}%`;
+        furnitureElement.style.top = `${furnitureData.y}%`;
+
+        furnitureElement.innerHTML = `
+            <div class="furniture-visual ${furnitureData.type}-visual" style="transform: scale(1.5);"></div>
+        `;
+
+        castleRoom.appendChild(furnitureElement);
     }
 
     animateBunny(bunnyElement) {
@@ -503,7 +683,13 @@ class BunnyIslandGame {
     loadGame() {
         const saved = localStorage.getItem('bunnyIslandSave');
         if (saved) {
-            this.gameState = JSON.parse(saved);
+            const loadedState = JSON.parse(saved);
+            // Merge with default state to handle new properties
+            this.gameState = {
+                ...this.gameState,
+                ...loadedState,
+                rooms: loadedState.rooms || this.gameState.rooms
+            };
         }
     }
 }

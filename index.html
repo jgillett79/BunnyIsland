@@ -63,18 +63,23 @@
         <div id="castle" class="screen">
             <div class="screen-header">
                 <button class="back-button" data-back="main-menu">← Back</button>
-                <h2>Bunny Castle</h2>
+                <h2>Bunny Castle - <span id="current-room-name">Living Room</span></h2>
                 <div class="castle-controls">
+                    <button id="prev-room">← Prev Room</button>
                     <button id="toggle-day-night">🌙 Night</button>
+                    <button id="next-room">Next Room →</button>
+                    <button id="place-furniture-btn">Place Furniture</button>
                 </div>
             </div>
             <div class="castle-area" id="castle-area">
-                <div class="castle-room" id="castle-room">
+                <div class="castle-room" id="castle-room" data-room="living-room">
                     <!-- Furniture and bunnies will be placed here -->
-                    <div class="bunny" id="bunny-1" style="left: 50%; top: 50%;">
-                        <div class="bunny-sprite bridal">👰🐰</div>
-                        <div class="bunny-name">Bridal Bunny</div>
-                    </div>
+                </div>
+            </div>
+            <div id="furniture-inventory" class="furniture-inventory">
+                <h3>Your Furniture</h3>
+                <div id="available-furniture" class="available-furniture-grid">
+                    <!-- Placed furniture from merge board will appear here -->
                 </div>
             </div>
         </div>
@@ -94,27 +99,27 @@
                 <h3>Select New Furniture (Level 1)</h3>
                 <div class="furniture-options">
                     <button class="furniture-option" data-furniture="lamp" data-level="1">
-                        <span class="furniture-icon">💡</span>
+                        <div class="furniture-visual lamp-visual"></div>
                         <span>Lamp</span>
                     </button>
                     <button class="furniture-option" data-furniture="drawer" data-level="1">
-                        <span class="furniture-icon">🗄️</span>
+                        <div class="furniture-visual drawer-visual"></div>
                         <span>Drawer</span>
                     </button>
                     <button class="furniture-option" data-furniture="chair" data-level="1">
-                        <span class="furniture-icon">🪑</span>
+                        <div class="furniture-visual chair-visual"></div>
                         <span>Chair</span>
                     </button>
                     <button class="furniture-option" data-furniture="table" data-level="1">
-                        <span class="furniture-icon">🍽️</span>
+                        <div class="furniture-visual table-visual"></div>
                         <span>Table</span>
                     </button>
                     <button class="furniture-option" data-furniture="bed" data-level="1">
-                        <span class="furniture-icon">🛏️</span>
+                        <div class="furniture-visual bed-visual"></div>
                         <span>Bed</span>
                     </button>
                     <button class="furniture-option" data-furniture="plant" data-level="1">
-                        <span class="furniture-icon">🪴</span>
+                        <div class="furniture-visual plant-visual"></div>
                         <span>Plant</span>
                     </button>
                 </div>

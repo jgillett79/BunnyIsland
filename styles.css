@@ -629,3 +629,406 @@ body {
         opacity: 1;
     }
 }
+
+/* Lifelike Bunny Sprites */
+.bunny-sprite {
+    width: 60px;
+    height: 70px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Bunny body parts */
+.bunny-sprite::before {
+    /* Bunny body */
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    background: #f5f5f5;
+    border-radius: 50% 50% 45% 45%;
+    bottom: 0;
+    left: 10px;
+    box-shadow:
+        inset -5px -5px 10px rgba(0,0,0,0.1),
+        inset 5px 5px 10px rgba(255,255,255,0.8),
+        0 5px 10px rgba(0,0,0,0.2);
+}
+
+.bunny-sprite::after {
+    /* Bunny head */
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    top: 5px;
+    left: 12px;
+    box-shadow:
+        inset -3px -3px 8px rgba(0,0,0,0.1),
+        inset 3px 3px 8px rgba(255,255,255,0.8),
+        /* Eyes */
+        inset -10px 8px 2px 0px #2d3436,
+        inset -15px 8px 2px 0px #2d3436,
+        /* Nose */
+        inset -12px 15px 3px 0px #ffb6c1;
+}
+
+/* Bunny ears - using pseudo elements on parent */
+.bunny-sprite.bridal,
+.bunny-sprite.chef,
+.bunny-sprite.astronaut,
+.bunny-sprite.pirate,
+.bunny-sprite.ninja,
+.bunny-sprite.wizard,
+.bunny-sprite.knight,
+.bunny-sprite.doctor,
+.bunny-sprite.artist {
+    position: relative;
+}
+
+/* Bridal bunny - white dress overlay */
+.bunny-sprite.bridal {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+.bunny-sprite.bridal::before {
+    background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
+    border-radius: 50% 50% 60% 60%;
+}
+
+/* Chef bunny - white chef outfit */
+.bunny-sprite.chef::before {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+}
+
+/* Astronaut bunny - space suit */
+.bunny-sprite.astronaut::before {
+    background: linear-gradient(180deg, #b8d4d8 0%, #87a6aa 100%);
+}
+
+/* Pirate bunny - dark outfit */
+.bunny-sprite.pirate::before {
+    background: linear-gradient(180deg, #2d3436 0%, #636e72 100%);
+}
+
+/* Ninja bunny - dark outfit */
+.bunny-sprite.ninja::before {
+    background: linear-gradient(180deg, #2d3436 0%, #000000 100%);
+}
+
+/* Wizard bunny - purple robes */
+.bunny-sprite.wizard::before {
+    background: linear-gradient(180deg, #6c5ce7 0%, #a29bfe 100%);
+}
+
+/* Knight bunny - armor */
+.bunny-sprite.knight::before {
+    background: linear-gradient(180deg, #95a5a6 0%, #7f8c8d 50%, #95a5a6 100%);
+    box-shadow:
+        inset -5px -5px 10px rgba(0,0,0,0.3),
+        inset 5px 5px 10px rgba(255,255,255,0.9),
+        0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* Doctor bunny - white coat */
+.bunny-sprite.doctor::before {
+    background: linear-gradient(180deg, #ffffff 0%, #ecf0f1 100%);
+}
+
+/* Artist bunny - colorful outfit */
+.bunny-sprite.artist::before {
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #ffe66d 100%);
+}
+
+/* Furniture Inventory Panel */
+.furniture-inventory {
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 3px solid #74b9ff;
+    padding: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.furniture-inventory h3 {
+    margin-bottom: 10px;
+    color: #2d3436;
+    font-size: 1em;
+}
+
+.available-furniture-grid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.inventory-furniture-item {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #74b9ff;
+    border-radius: 8px;
+    cursor: grab;
+    position: relative;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-furniture-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.inventory-furniture-item:active {
+    cursor: grabbing;
+}
+
+.inventory-furniture-item .furniture-level {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e17055;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7em;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+/* Lifelike Furniture Visuals using CSS */
+.furniture-visual {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* Lamp */
+.lamp-visual {
+    background: linear-gradient(180deg, transparent 0%, transparent 40%, #f1c40f 40%, #f39c12 60%, #8B4513 60%, #654321 100%);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+}
+
+.lamp-visual::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 30px;
+    height: 20px;
+    background: linear-gradient(180deg, #fffacd, #ffd700);
+    border-radius: 50%;
+    box-shadow:
+        0 0 20px rgba(255, 215, 0, 0.8),
+        inset 0 -5px 10px rgba(0,0,0,0.2);
+}
+
+/* Drawer */
+.drawer-visual {
+    background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+    border: 2px solid #654321;
+    border-radius: 5px;
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.3),
+        inset 0 -2px 5px rgba(0,0,0,0.3),
+        0 3px 8px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.drawer-visual::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 3px;
+    background: #2d3436;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+/* Chair */
+.chair-visual {
+    position: relative;
+}
+
+.chair-visual::before {
+    /* Seat */
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 8px;
+    background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+    bottom: 15px;
+    left: 7px;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.chair-visual::after {
+    /* Backrest */
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 25px;
+    background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+    top: 5px;
+    left: 10px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+}
+
+/* Table */
+.table-visual {
+    position: relative;
+}
+
+.table-visual::before {
+    /* Tabletop */
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 8px;
+    background: linear-gradient(90deg, #8B4513, #CD853F, #8B4513);
+    top: 15px;
+    left: 2px;
+    border-radius: 4px;
+    box-shadow:
+        0 3px 8px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.table-visual::after {
+    /* Table leg */
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 25px;
+    background: linear-gradient(90deg, #654321, #8B4513);
+    bottom: 5px;
+    left: 22px;
+    border-radius: 2px;
+}
+
+/* Bed */
+.bed-visual {
+    position: relative;
+}
+
+.bed-visual::before {
+    /* Mattress */
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 15px;
+    background: linear-gradient(180deg, #e8f5f7, #b8d4d8);
+    bottom: 8px;
+    left: 2px;
+    border-radius: 5px;
+    box-shadow:
+        0 2px 5px rgba(0,0,0,0.3),
+        inset 0 2px 5px rgba(255,255,255,0.5);
+}
+
+.bed-visual::after {
+    /* Pillow */
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 8px;
+    background: linear-gradient(180deg, #fff, #f0f0f0);
+    top: 10px;
+    left: 5px;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Plant */
+.plant-visual {
+    position: relative;
+}
+
+.plant-visual::before {
+    /* Pot */
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 20px;
+    background: linear-gradient(180deg, #cd6155, #a04000);
+    bottom: 5px;
+    left: 12px;
+    border-radius: 0 0 5px 5px;
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.plant-visual::after {
+    /* Leaves */
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 25px;
+    background:
+        radial-gradient(circle at 30% 30%, #27ae60, transparent 60%),
+        radial-gradient(circle at 70% 40%, #2ecc71, transparent 60%),
+        radial-gradient(circle at 50% 60%, #27ae60, transparent 60%);
+    top: 0;
+    left: 10px;
+    border-radius: 50%;
+}
+
+/* Drag and drop states */
+.merge-cell.drag-over {
+    background: rgba(116, 185, 255, 0.5);
+    border-color: #0984e3;
+    transform: scale(1.05);
+}
+
+.furniture-item.dragging {
+    opacity: 0.5;
+}
+
+/* Castle furniture placement */
+.castle-furniture {
+    position: absolute;
+    cursor: move;
+    transition: transform 0.2s;
+}
+
+.castle-furniture:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.castle-furniture.placing {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Room navigation */
+.castle-room.locked {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.room-unlock-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    text-align: center;
+}
