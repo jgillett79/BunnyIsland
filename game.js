@@ -126,11 +126,11 @@ class BunnyIslandGame {
         let carrotValue = 1;
 
         if (rand > 0.95) {
-            carrotIcon = '🌈🥕'; // Rainbow carrot
+            // Rainbow carrot - CSS will make it rainbow colored
             carrotValue = 5;
             carrot.classList.add('rainbow');
         } else if (rand > 0.85) {
-            carrotIcon = '✨🥕'; // Golden carrot
+            // Golden carrot - CSS will make it golden colored
             carrotValue = 3;
             carrot.classList.add('golden');
         }
