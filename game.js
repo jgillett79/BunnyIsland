@@ -584,7 +584,7 @@ class BunnyIslandGame {
         this.gameState.bunnies.forEach((bunny, index) => {
             if (bunny.unlocked) {
                 const bunnyElement = document.createElement('div');
-                bunnyElement.className = 'bunny';
+                bunnyElement.className = `bunny ${bunny.type}`;
                 bunnyElement.id = `bunny-${bunny.id}`;
 
                 // Random position
@@ -593,9 +593,9 @@ class BunnyIslandGame {
                 bunnyElement.style.left = `${x}%`;
                 bunnyElement.style.top = `${y}%`;
 
-                // CSS-based bunny sprite
+                // CSS-based bunny sprite with ears
                 bunnyElement.innerHTML = `
-                    <div class="bunny-sprite ${bunny.type}"></div>
+                    <div class="bunny-sprite"></div>
                 `;
 
                 castleRoom.appendChild(bunnyElement);

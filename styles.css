@@ -632,113 +632,155 @@ body {
 
 /* Lifelike Bunny Sprites */
 .bunny-sprite {
-    width: 60px;
-    height: 70px;
+    width: 70px;
+    height: 90px;
     position: relative;
     display: inline-block;
 }
 
-/* Bunny body parts */
+/* Bunny ears */
 .bunny-sprite::before {
-    /* Bunny body */
+    /* Left ear */
     content: '';
     position: absolute;
-    width: 40px;
-    height: 50px;
-    background: #f5f5f5;
-    border-radius: 50% 50% 45% 45%;
-    bottom: 0;
-    left: 10px;
-    box-shadow:
-        inset -5px -5px 10px rgba(0,0,0,0.1),
-        inset 5px 5px 10px rgba(255,255,255,0.8),
-        0 5px 10px rgba(0,0,0,0.2);
-}
-
-.bunny-sprite::after {
-    /* Bunny head */
-    content: '';
-    position: absolute;
-    width: 35px;
+    width: 12px;
     height: 35px;
-    background: #f5f5f5;
-    border-radius: 50%;
-    top: 5px;
-    left: 12px;
+    background: linear-gradient(90deg, #e8e8e8, #f5f5f5);
+    border-radius: 50% 50% 20% 20%;
+    top: -5px;
+    left: 18px;
+    transform: rotate(-15deg);
     box-shadow:
-        inset -3px -3px 8px rgba(0,0,0,0.1),
-        inset 3px 3px 8px rgba(255,255,255,0.8),
-        /* Eyes */
-        inset -10px 8px 2px 0px #2d3436,
-        inset -15px 8px 2px 0px #2d3436,
-        /* Nose */
-        inset -12px 15px 3px 0px #ffb6c1;
+        inset 2px 2px 5px rgba(255,255,255,0.8),
+        inset -2px -2px 5px rgba(0,0,0,0.1),
+        3px 3px 8px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-/* Bunny ears - using pseudo elements on parent */
-.bunny-sprite.bridal,
-.bunny-sprite.chef,
-.bunny-sprite.astronaut,
-.bunny-sprite.pirate,
-.bunny-sprite.ninja,
-.bunny-sprite.wizard,
-.bunny-sprite.knight,
-.bunny-sprite.doctor,
-.bunny-sprite.artist {
+/* Right ear */
+.bunny-sprite::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 35px;
+    background: linear-gradient(90deg, #f5f5f5, #e8e8e8);
+    border-radius: 50% 50% 20% 20%;
+    top: -5px;
+    left: 40px;
+    transform: rotate(15deg);
+    box-shadow:
+        inset 2px 2px 5px rgba(255,255,255,0.8),
+        inset -2px -2px 5px rgba(0,0,0,0.1),
+        -3px 3px 8px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Create bunny head, body, and features using a wrapper div structure */
+.bunny {
     position: relative;
 }
 
-/* Bridal bunny - white dress overlay */
-.bunny-sprite.bridal {
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+.bunny .bunny-sprite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.bunny-sprite.bridal::before {
-    background: linear-gradient(180deg, #ffffff 0%, #fff5f7 100%);
-    border-radius: 50% 50% 60% 60%;
+/* Add head and body via container pseudo-elements */
+.bunny::before {
+    /* This creates the bunny head */
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #f5f5f5);
+    border-radius: 50%;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+        inset -3px -3px 10px rgba(0,0,0,0.1),
+        inset 3px 3px 10px rgba(255,255,255,0.9),
+        0 5px 15px rgba(0,0,0,0.2);
+    z-index: 2;
+    /* Eyes */
+    background-image:
+        radial-gradient(circle at 35% 40%, #2d3436 4px, transparent 4px),
+        radial-gradient(circle at 65% 40%, #2d3436 4px, transparent 4px),
+        /* Nose */
+        radial-gradient(ellipse at 50% 60%, #ffb6c1 6px, transparent 6px);
 }
 
-/* Chef bunny - white chef outfit */
-.bunny-sprite.chef::before {
-    background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+.bunny::after {
+    /* This creates the bunny body */
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 55px;
+    background: radial-gradient(ellipse at 50% 30%, #ffffff, #f0f0f0);
+    border-radius: 50% 50% 48% 48%;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+        inset -5px -8px 15px rgba(0,0,0,0.1),
+        inset 5px 5px 15px rgba(255,255,255,0.9),
+        0 8px 20px rgba(0,0,0,0.25);
+    z-index: 1;
+}
+
+/* Bunny outfit customizations */
+/* Bridal bunny - white dress */
+.bunny.bridal::after {
+    background: radial-gradient(ellipse at 50% 30%, #ffffff, #fff5f7);
+    box-shadow:
+        inset -5px -8px 15px rgba(255,192,203,0.2),
+        inset 5px 5px 15px rgba(255,255,255,1),
+        0 8px 20px rgba(0,0,0,0.25),
+        0 0 20px rgba(255,255,255,0.6);
+}
+
+/* Chef bunny - white outfit */
+.bunny.chef::after {
+    background: radial-gradient(ellipse at 50% 30%, #ffffff, #f0f0f0);
 }
 
 /* Astronaut bunny - space suit */
-.bunny-sprite.astronaut::before {
-    background: linear-gradient(180deg, #b8d4d8 0%, #87a6aa 100%);
+.bunny.astronaut::after {
+    background: radial-gradient(ellipse at 50% 30%, #d4e6e8, #87a6aa);
 }
 
 /* Pirate bunny - dark outfit */
-.bunny-sprite.pirate::before {
-    background: linear-gradient(180deg, #2d3436 0%, #636e72 100%);
+.bunny.pirate::after {
+    background: radial-gradient(ellipse at 50% 30%, #636e72, #2d3436);
 }
 
-/* Ninja bunny - dark outfit */
-.bunny-sprite.ninja::before {
-    background: linear-gradient(180deg, #2d3436 0%, #000000 100%);
+/* Ninja bunny - black outfit */
+.bunny.ninja::after {
+    background: radial-gradient(ellipse at 50% 30%, #2d3436, #000000);
 }
 
 /* Wizard bunny - purple robes */
-.bunny-sprite.wizard::before {
-    background: linear-gradient(180deg, #6c5ce7 0%, #a29bfe 100%);
+.bunny.wizard::after {
+    background: radial-gradient(ellipse at 50% 30%, #a29bfe, #6c5ce7);
 }
 
-/* Knight bunny - armor */
-.bunny-sprite.knight::before {
-    background: linear-gradient(180deg, #95a5a6 0%, #7f8c8d 50%, #95a5a6 100%);
+/* Knight bunny - metallic armor */
+.bunny.knight::after {
+    background: radial-gradient(ellipse at 50% 30%, #bdc3c7, #7f8c8d);
     box-shadow:
-        inset -5px -5px 10px rgba(0,0,0,0.3),
-        inset 5px 5px 10px rgba(255,255,255,0.9),
-        0 5px 10px rgba(0,0,0,0.2);
+        inset -5px -8px 15px rgba(0,0,0,0.3),
+        inset 5px 5px 15px rgba(255,255,255,0.9),
+        0 8px 20px rgba(0,0,0,0.3);
 }
 
 /* Doctor bunny - white coat */
-.bunny-sprite.doctor::before {
-    background: linear-gradient(180deg, #ffffff 0%, #ecf0f1 100%);
+.bunny.doctor::after {
+    background: radial-gradient(ellipse at 50% 30%, #ffffff, #ecf0f1);
 }
 
 /* Artist bunny - colorful outfit */
-.bunny-sprite.artist::before {
+.bunny.artist::after {
     background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #ffe66d 100%);
 }
 
@@ -984,6 +1026,246 @@ body {
     top: 0;
     left: 10px;
     border-radius: 50%;
+}
+
+/* Chandelier (merged lamp) */
+.chandelier-visual {
+    position: relative;
+}
+
+.chandelier-visual::before {
+    /* Crystal center */
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    background: linear-gradient(180deg, #ffd700, #fffacd, #ffd700);
+    clip-path: polygon(50% 0%, 70% 30%, 100% 30%, 80% 50%, 90% 80%, 50% 65%, 10% 80%, 20% 50%, 0% 30%, 30% 30%);
+    top: 5px;
+    left: 5px;
+    box-shadow:
+        0 0 30px rgba(255, 215, 0, 0.9),
+        inset 0 2px 10px rgba(255,255,255,0.8);
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
+
+/* Wardrobe (merged drawer) */
+.wardrobe-visual {
+    background: linear-gradient(90deg, #654321 0%, #8B4513 20%, #A0522D 50%, #8B4513 80%, #654321 100%);
+    border: 3px solid #4a3119;
+    border-radius: 8px;
+    box-shadow:
+        inset 0 3px 0 rgba(255,255,255,0.3),
+        inset 0 -3px 8px rgba(0,0,0,0.4),
+        0 5px 15px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+.wardrobe-visual::before {
+    /* Door line */
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: #2d3436;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wardrobe-visual::after {
+    /* Door handles */
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 3px;
+    background: #d4af37;
+    top: 50%;
+    left: 35%;
+    border-radius: 2px;
+    box-shadow: 15px 0 0 #d4af37;
+}
+
+/* Sofa (merged chair) */
+.sofa-visual {
+    position: relative;
+}
+
+.sofa-visual::before {
+    /* Seat cushions */
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 20px;
+    background: linear-gradient(180deg, #8B4513, #A0522D);
+    bottom: 8px;
+    left: 2px;
+    border-radius: 5px 5px 2px 2px;
+    box-shadow:
+        0 3px 8px rgba(0,0,0,0.4),
+        inset 0 2px 5px rgba(255,255,255,0.2);
+}
+
+.sofa-visual::after {
+    /* Backrest */
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 20px;
+    background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+    top: 5px;
+    left: 2px;
+    border-radius: 5px 5px 0 0;
+    box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.3),
+        0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Dining Table (merged table) */
+.dining-table-visual {
+    position: relative;
+}
+
+.dining-table-visual::before {
+    /* Large tabletop */
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 12px;
+    background: linear-gradient(90deg, #654321, #8B4513, #CD853F, #8B4513, #654321);
+    top: 12px;
+    left: 1px;
+    border-radius: 6px;
+    box-shadow:
+        0 5px 12px rgba(0,0,0,0.4),
+        inset 0 2px 3px rgba(255,255,255,0.4);
+}
+
+.dining-table-visual::after {
+    /* Center pedestal */
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 28px;
+    background: linear-gradient(90deg, #654321, #8B4513, #654321);
+    bottom: 3px;
+    left: 17px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+    border-radius: 0 0 5px 5px;
+}
+
+/* King Bed (merged bed) */
+.king-bed-visual {
+    position: relative;
+}
+
+.king-bed-visual::before {
+    /* Large mattress */
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 25px;
+    background: linear-gradient(180deg, #f0f8ff, #b8d4d8, #87ceeb);
+    bottom: 5px;
+    left: 1px;
+    border-radius: 8px;
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.4),
+        inset 0 3px 8px rgba(255,255,255,0.6);
+}
+
+.king-bed-visual::after {
+    /* Headboard */
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 15px;
+    background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+    top: 5px;
+    left: 1px;
+    border-radius: 8px 8px 0 0;
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,0.3),
+        0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Tree (merged plant) */
+.tree-visual {
+    position: relative;
+}
+
+.tree-visual::before {
+    /* Tree trunk */
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    background: linear-gradient(90deg, #654321, #8B4513, #654321);
+    bottom: 5px;
+    left: 20px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.tree-visual::after {
+    /* Tree foliage */
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    background:
+        radial-gradient(circle at 30% 30%, #27ae60, transparent 45%),
+        radial-gradient(circle at 70% 35%, #2ecc71, transparent 45%),
+        radial-gradient(circle at 50% 60%, #27ae60, transparent 50%),
+        radial-gradient(circle at 25% 65%, #1e8449, transparent 40%),
+        radial-gradient(circle at 75% 70%, #229954, transparent 40%);
+    top: 0;
+    left: 5px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Lit Drawer (lamp + drawer merge) */
+.lit-drawer-visual {
+    background: linear-gradient(90deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+    border: 2px solid #654321;
+    border-radius: 5px;
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.3),
+        inset 0 -2px 5px rgba(0,0,0,0.3),
+        0 3px 8px rgba(0,0,0,0.3),
+        0 0 25px rgba(255, 215, 0, 0.6);
+    position: relative;
+}
+
+.lit-drawer-visual::before {
+    /* Drawer handle */
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 3px;
+    background: #2d3436;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.lit-drawer-visual::after {
+    /* Light glow on top */
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 15px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.8), transparent);
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(3px);
 }
 
 /* Drag and drop states */
