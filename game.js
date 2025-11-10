@@ -62,6 +62,7 @@ class BunnyIslandGame {
 
         document.getElementById('btn-merge').addEventListener('click', () => {
             this.switchScreen('merge-board');
+            this.renderMergeGrid();
         });
 
         // Back buttons
